@@ -1,0 +1,86 @@
+package schat.webserver;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import schat.databasemanager.LoginsDB;
+import schat.sessionmanager.SessionManager;
+
+@SuppressWarnings("serial")
+public class RegisterServlet extends HttpServlet implements WebPage {
+	
+	@Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// If they have a valid session id, means they are already logged in, redirect them to home
+		boolean isLoggedIn = checkSession(req.getCookies()) != null;
+		
+		if (!isLoggedIn)
+			serveHtml(resp);
+		else
+			resp.sendRedirect("/home");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	String username = req.getParameter("username");
+    	String password = req.getParameter("password");
+    	
+    	if (username != null && password != null) {
+    		if (username.length() < 3 || password.length() < 3) {
+    			// length too low
+    			resp.sendRedirect("/register?register=lengthlow");
+    		} else if (LoginsDB.isUserPresent(username)) {
+    			// user is already present
+    			resp.sendRedirect("/register?register=alreadypresent");
+    		} else {
+    			// add account and redirect to login page
+    			boolean status = LoginsDB.addUser(username, password);
+    			if (status == true) {
+    				resp.sendRedirect("/login?login=created");
+    			} else {
+    				resp.sendRedirect("/register?register=failed");
+    			}
+    		}
+    	}
+    }
+    
+	
+	// Web page implementation
+	@Override
+	public void serveHtml(HttpServletResponse resp) throws IOException{
+		String responseHtml = "";
+		
+		try (BufferedReader br = Files.newBufferedReader(Paths.get("src/main/resources/web_pages/register/register.html"))) {
+			for (String line; (line = br.readLine()) != null;) {
+	            responseHtml += line+"\n";
+	        }
+		}
+
+		resp.setContentType("text/html");
+		resp.setStatus(HttpServletResponse.SC_OK);
+		resp.getWriter().write(responseHtml);
+	}
+	
+	@Override
+	public Cookie checkSession(Cookie[] cookies) {
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(SessionManager.sessionCookieId)) {
+					if (SessionManager.doesSessionExist(cookie.getValue())) {
+						return cookie;
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
+}

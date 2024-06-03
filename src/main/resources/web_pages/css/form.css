@@ -43,11 +43,19 @@ input[type="text"]{
     margin-top: 3%;
 }
 
+input:focus[type="text"]{
+    border-color: rgb(73, 88, 255);
+}
+
 input[type="password"]{
     border-radius: 1rem;
     height: 8rem;
     margin-bottom: 5%;
     margin-top: 3%;
+}
+
+input:focus[type="password"]{
+    border-color: rgb(73, 88, 255);
 }
 
 input[type="submit"]{

@@ -6,6 +6,10 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import schat.chatservlet.OldMessageServlet;
+import schat.chatservlet.NewMessageServlet;
+import schat.chatservlet.SendMessageServlet;
+
 import java.io.IOException;
 
 import javax.servlet.http.HttpServlet;
@@ -46,6 +50,10 @@ public class WebServer {
 		 servletContext.addServlet(new ServletHolder(new LoginServlet()), "/login");
 		 servletContext.addServlet(new ServletHolder(new RegisterServlet()), "/register");
 		 servletContext.addServlet(new ServletHolder(new HomeServlet()), "/home");
+		 
+		 servletContext.addServlet(new ServletHolder(new NewMessageServlet()), "/newchat");
+		 servletContext.addServlet(new ServletHolder(new OldMessageServlet()), "/oldchat");
+		 servletContext.addServlet(new ServletHolder(new SendMessageServlet()), "/sendmessage");
 		 
 		 // ------------
 	     

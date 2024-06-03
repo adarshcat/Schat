@@ -1,23 +1,12 @@
 package schat.databasemanager;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class LoginsDB {
-	
-	static Connection connection;
-	static Statement statement;
-	
-	public static void initialiseDatabase() {
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/schatdb", "adarsh", "123");
-		    statement = connection.createStatement();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
+	public static void initialise() {
+		
 	}
 	
 	public static boolean addUser(String username, String password) {
@@ -25,7 +14,7 @@ public class LoginsDB {
 		String command = "insert into logins(username, password) values(\'" + username +"\', \'" + password + "\')";
 		
 		try {
-			int rowUpdated = statement.executeUpdate(command);
+			int rowUpdated = DBManager.statement.executeUpdate(command);
 			
 			if (rowUpdated == 0) return false;
 			
@@ -41,7 +30,7 @@ public class LoginsDB {
 		String command = "select * from logins where username=\'" + username + "\'";
 		
 		try {
-			ResultSet resultSet = statement.executeQuery(command);
+			ResultSet resultSet = DBManager.statement.executeQuery(command);
 			int rowCount = 0;
 			
 			while(resultSet.next()) {
@@ -61,7 +50,7 @@ public class LoginsDB {
 		String command = "select * from logins where username=\'" + username + "\' and password=\'" + password + "\'";
 		
 		try {
-			ResultSet resultSet = statement.executeQuery(command);
+			ResultSet resultSet = DBManager.statement.executeQuery(command);
 			int rowCount = 0;
 			
 			while(resultSet.next()) {

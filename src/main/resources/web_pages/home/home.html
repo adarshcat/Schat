@@ -11,13 +11,23 @@
         <!-- Custom CSS-->
         <link rel="stylesheet" type="text/css" rel="noopener" target="_blank" href="/web_pages/css/home.css">
 
-        
+         <!-- Main Script-->
+         <script src="/web_pages/home/home.js"></script>
     </head>
 
     <body>
-        <div class="chatbox">
-            <h1> Schat </h1>
-            <hr><br/>
+        <div class = "topbar">
+            <h1 class = "heading">Schat</h1>
+        </div>
+
+        <div class = "scroll" id="messages">
+        </div>
+
+        <br/><br/>
+
+        <div class = "chatbox">
+            <input type="text" id="chatbox" name="chatbox">
+            <button class="sendbtn" id="sendbtn" onclick = "sendMessage()">Send</button>
         </div>
     </body>
 </html>

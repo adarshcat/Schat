@@ -86,10 +86,10 @@ async function sendMessage(){
     try {
         let chatbox = document.getElementById("chatbox");
 
-        await fetch('/sendmessage', {
-            method: 'POST',
+        await fetch("/sendmessage", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                "Content-Type": "application/x-www-form-urlencoded"
             },
             body: `message=${chatbox.value}`
         });
@@ -97,7 +97,7 @@ async function sendMessage(){
         chatbox.value = "";
         loadNewerMessages();
     } catch (error) {
-        console.error('Error sending message:', error);
+        console.error("Error sending message:", error);
     }
 }
 

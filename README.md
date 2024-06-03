@@ -22,7 +22,7 @@ The front-end of the web app mainly consists of HTML, CSS and Javascript. The lo
 
 Honourable mention to Milligram, the css framework I used to style my web pages.
 
-## Conclusion!
+# Conclusion!
 
 It was a short term project which took no more than 5 days to complete. I don't have any future prospects of continuing with this project. The aim was to have a basic idea as to how web features like signing in, registering and session management works, I beleive it has fulfilled it's job in that regard.
 

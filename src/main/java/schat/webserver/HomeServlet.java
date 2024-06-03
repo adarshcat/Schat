@@ -24,7 +24,6 @@ public class HomeServlet extends HttpServlet implements WebPage{
 		Cookie loginCookie = checkSession(req.getCookies());
 		
 		if (loginCookie != null) {
-			//String username = SessionManager.getUsernameFromSessionId(loginCookie.getValue());
 			serveHtml(resp);
 		} else {
 			resp.sendRedirect("/login");

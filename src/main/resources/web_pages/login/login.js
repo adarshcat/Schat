@@ -15,4 +15,4 @@ function setLoginResultMessage (){
 }
 
 // attach the login result checker to its appropriate function
-document.addEventListener('DOMContentLoaded', setLoginResultMessage);
+document.addEventListener("DOMContentLoaded", setLoginResultMessage);
